@@ -4,6 +4,10 @@ import { fetchTasks } from './FetchTask'; // Import hàm fetchTasks từ fetchTa
 
 // Hàm để thêm nhiệm vụ
 const addTask = async (title, description, assignee, setTasks, fetchTasks) => {
+    if (!title.trim()||!description.trim()||!assignee.trim()) {
+        toast.error('Please fill full information!');
+        return;
+    }
     try {
         //tạo đối tượng Task mới với các thông tin được nhập vào từ người dùng
         const newTask = {
