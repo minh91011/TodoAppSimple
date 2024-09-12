@@ -31,37 +31,37 @@
       "id": "4",
       "title": "Workout",
       "description": "Go to the gym and do a full-body workout.",
-      "completed": false,
+      "completed": true,
       "assignee": "Diana",
       "createTime": "2024-09-04",
-      "completeTime": null
+      "completeTime": "9/12/2024, 11:21:33 AM"
     },
     {
       "id": "5",
       "title": "Read book",
       "description": "Finish reading the book 'The Great Gatsby'.",
-      "completed": false,
+      "completed": true,
       "assignee": "Edward",
       "createTime": "2024-09-05",
-      "completeTime": null
+      "completeTime": "9/12/2024, 11:31:11 AM"
     },
     {
       "id": "6",
       "title": "Prepare presentation",
       "description": "Create slides and notes for the upcoming presentation.",
-      "completed": true,
+      "completed": false,
       "assignee": "Fiona",
       "createTime": "2024-09-06",
-      "completeTime": "9/12/2024, 8:49:14 AM"
+      "completeTime": null
     },
     {
       "id": "7",
       "title": "Book flight",
       "description": "Reserve a flight for the upcoming vacation.",
-      "completed": true,
+      "completed": false,
       "assignee": "George",
       "createTime": "2024-09-07",
-      "completeTime": "9/12/2024, 8:49:22 AM"
+      "completeTime": null
     },
     {
       "id": "8",
