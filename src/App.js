@@ -26,10 +26,9 @@ function App() {
             <Route path="/Tasks" element={<ManageTask />} />
             <Route path="/Users" element={<ManageUser />} />
 
-            {/* Redirect unknown routes back to the blank page */}
-            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
 
+          {/* phần cấu hình cho Toast */}
           <ToastContainer
             position="top-center"
             autoClose={2000}

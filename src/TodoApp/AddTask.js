@@ -5,6 +5,7 @@ import { fetchTasks } from './FetchTask'; // Import hàm fetchTasks từ fetchTa
 // Hàm để thêm nhiệm vụ
 const addTask = async (title, description, assignee, setTasks, fetchTasks) => {
     try {
+        //tạo đối tượng Task mới với các thông tin được nhập vào từ người dùng
         const newTask = {
             title,
             description,
@@ -13,9 +14,14 @@ const addTask = async (title, description, assignee, setTasks, fetchTasks) => {
             assignee,
             completeTime: null,
         };
+
+        //gọi đến method POST để tạo một Task mới
         const response = await axios.post('http://localhost:5000/tasks', newTask);
-        setTasks(prevTasks => [...prevTasks, response.data]); //toán tử copy
+        //cập nhật lại danh sách Task trong stage 
+        setTasks(prevTasks => [...prevTasks, response.data]); //toán tử copy để giữ lại dữ liệu cũ
+        //Thông báo đến người dùng
         toast.success('Task added successfully!');
+        //gọi lại hàm fetch để load lại danh sách Task
         await fetchTasks();
     } catch (error) {
         toast.error('Failed to add task!');

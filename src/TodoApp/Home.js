@@ -11,20 +11,21 @@ import UpdateTask from './UpdateTask';
 
 const ManageTask = () => {
 
+    //tạo state để lưu thông tin của từng Task
     const [taskInfor, setTaskInfor] = useState({title: '', description: '', assignee: ''});
-
-    const [listAssignee, setListAssignee] = useState([]); // Load data ra thẻ select-option
-
+    //tạo state để lưu thông tin User, Load data ra thẻ select-option
+    const [listAssignee, setListAssignee] = useState([]); 
+    //tạo state để lưu thông tin các button filter
     const [filter, setFilter] = useState('all');
     const [filteredTasks, setFilteredTasks] = useState([]);
-
+    //tạo state để lưu thông tin danh sách Task
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // Sử dụng async/await để gọi API
     const fetchTasksData = async () => {
         try {
-            const tasksData = await fetchTasks(); // Gọi hàm fetchTasks từ module
+            const tasksData = await fetchTasks(); // Gọi hàm fetchTasks 
             setTasks(tasksData); // Lưu dữ liệu vào state
             setFilteredTasks(tasksData); // Lưu dữ liệu vào filteredTasks
             setLoading(false); // Ngừng loading
@@ -35,6 +36,7 @@ const ManageTask = () => {
 
     // Gọi hàm fetchTasks và fetchUsers khi component render lần đầu
     useEffect(() => {  
+        //lấy danh sách người dùng
         const getUsers = async () => {
             const userList = await fetchUsers(); // Gọi hàm fetchUsers để lấy danh sách người dùng
             setListAssignee(userList); // Lưu danh sách người dùng vào state
@@ -47,20 +49,28 @@ const ManageTask = () => {
     const updateFilter = (filterType) => {
         setFilter(filterType);
         const filtered = tasks.filter(task => {
-            if (filterType === 'completed') return task.completed;
+            //nếu filter type là completed thì thuộc tính complete sẽ là true
+            if (filterType === 'completed') return task.completed; 
+            //nếu filter type là todo thì thuộc tính complete sẽ là false
             if (filterType === 'todo') return !task.completed;
+            //nếu filter type là all thì trả về tất cả True và False
             return true;
         });
+        //truyền dữ liệu vào state
         setFilteredTasks(filtered);
     };
 
-    // Sử dụng hàm addTask từ file addTask.js
+    // hàm để thêm Task mới
     const handleAddTask = async () => {
+        //gọi và truyền các param đến hàm addTask
         addTask(taskInfor.title, taskInfor.description, taskInfor.assignee, setTasks, fetchTasksData);
+        //xóa các thông tin trong state, như thế form sẽ được reset
         setTaskInfor({title:'', description:'', assignee:''});
     };
 
+    //hàm để cập nhật complete của từng Task
     const handleStatusChange = async (taskId, newStatus) => {
+        //gọi và truyền các param đến hàm UpdateTask
         await UpdateTask(taskId, newStatus, fetchTasksData);
     };
 

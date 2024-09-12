@@ -7,7 +7,7 @@ import {toast } from 'react-toastify';
 // Hàm fetchUsers để gọi API
 export const fetchUsers = async () => {
     try {
-        const response = await axios.get('http://localhost:5000/users'); // Gọi API từ json-server
+        const response = await axios.get('http://localhost:5000/users'); 
         return response.data; // Trả về dữ liệu nếu thành công
     } catch (error) {
         toast.error('Fetching data failed!');
