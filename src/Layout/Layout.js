@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import {
-    DesktopOutlined,
     FileOutlined,
-    PieChartOutlined,
     TeamOutlined,
-    UserOutlined,
+    AppstoreOutlined
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import DashBoard from './DashBoard/DashBoard';
+import {Link} from 'react-router-dom'
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
     return {
@@ -19,14 +18,15 @@ function getItem(label, key, icon, children) {
 }
 const items = [
     getItem(<h1></h1>, '1'),
-    //   getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
+    getItem('Todo App', 'sub1', <AppstoreOutlined />, [
+        getItem(
+            <Link to="/Tasks">Manage Task</Link>,'3'
+        ),
+        getItem(
+            <Link to="/Users">Manage User</Link>,'4'
+        )
     ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('Exam System', '5', <AppstoreOutlined />),
 ];
 const WebLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -50,7 +50,10 @@ const WebLayout = () => {
                         background: colorBgContainer,
                     }}
                 >
-                    <DashBoard></DashBoard>
+                    <h3>XIN CHÀO!, MÌNH LÀ NHẬT MINH, INTERN REACTJS TẠI
+                        <a href="https://vieted.com/" class="text-primary"> VIETED</a>
+                    </h3>
+
                 </Header>
                 <Content
                     style={{
@@ -65,34 +68,15 @@ const WebLayout = () => {
 
                     </Breadcrumb>
                     <div
-            style={{
-                padding: 24,
-                minHeight: 360,
-                background: '#f0f2f5', // Thay thế với colorBgContainer
-                borderRadius: '8px', // Thay thế với borderRadiusLG
-            }}
-        >
-            <h1 style={{ textAlign: 'center' }}>Giới Thiệu Về Bản Thân</h1>
-            <div className="row">
-                <div className="col-md-6">
-                    <h2>
-                        <UserOutlined /> Nhật Minh
-                    </h2>
-                    <p>
-                        Xin chào! Tôi là Nhật Minh, một thực tập sinh ReactJS tại VietED. Tôi yêu thích lập trình và luôn tìm cách học hỏi để phát triển kỹ năng của mình.
-                    </p>
-                </div>
-                <div className="col-md-6">
-                    <h2>Thông Tin Liên Hệ</h2>
-                    <p>
-                        <MailOutlined /> Email: nhatminh@example.com
-                    </p>
-                    <p>
-                        <PhoneOutlined /> Điện thoại: +84 123 456 789
-                    </p>
-                </div>
-            </div>
-        </div>
+                        style={{
+                            padding: 24,
+                            minHeight: 360,
+                            background: '#f0f2f5', // Thay thế với colorBgContainer
+                            borderRadius: '8px', // Thay thế với borderRadiusLG
+                        }}
+                    >
+                        <DashBoard></DashBoard>
+                    </div>
                 </Content>
                 <Footer
                     style={{

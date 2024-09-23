@@ -1,0 +1,9 @@
+.image{
+    // background-color: red;
+}
+.dashboard-image{
+    width: 100%;  // Đảm bảo ảnh chiếm toàn bộ chiều rộng của khung
+    height: auto; // Giữ tỷ lệ khung hình
+    border-radius: 8px; // Làm cho các góc của ảnh tròn hơn
+    object-fit: cover; // Đảm bảo ảnh sẽ được cắt đúng cách nếu không vừa khung
+}
