@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import {
-    FileOutlined,
-    TeamOutlined,
     AppstoreOutlined
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import DashBoard from './DashBoard/DashBoard';
-import {Link} from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { ToastContainer, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import logoVietED from '../Assets/Image/logoVietED.png'
+import './Layout.scss'
+import BreadcrumbItem from 'antd/es/breadcrumb/BreadcrumbItem';
+
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
     return {
@@ -17,13 +20,13 @@ function getItem(label, key, icon, children) {
     };
 }
 const items = [
-    getItem(<h1></h1>, '1'),
+
     getItem('Todo App', 'sub1', <AppstoreOutlined />, [
         getItem(
-            <Link to="/Tasks">Manage Task</Link>,'3'
+            <Link to="/Tasks" className='text-decoration-none'>Manage Task</Link>, '3'
         ),
         getItem(
-            <Link to="/Users">Manage User</Link>,'4'
+            <Link to="/Users" className='text-decoration-none'>Manage User</Link>, '4'
         )
     ]),
     getItem('Exam System', '5', <AppstoreOutlined />),
@@ -31,51 +34,69 @@ const items = [
 const WebLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {
-        token: { colorBgContainer, borderRadiusLG },
+        token: { colorBgContainer },
     } = theme.useToken();
+    const location = useLocation();
+    const uri = location.pathname.split('/').filter((i)=>i)
+    const breadcrumbItems = [
+        <Breadcrumb.Item key="home">
+            <Link to="/" className='link'>Home</Link>
+        </Breadcrumb.Item>,
+        ...uri.map((snippet, index) => {
+            const url = `/${uri.slice(0, index + 1).join('/')}`;
+            return (
+                <Breadcrumb.Item key={url}>
+                    <Link to={url} className='link'>{snippet}</Link>
+                </Breadcrumb.Item>
+            );
+        }),
+    ];
+
     return (
-        <Layout
-            style={{
-                minHeight: '100vh',
-            }}
+        <Layout className='layoutParent'
         >
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div className="demo-logo-vertical" />
+                <div className='logoHome'><Link to="/"><img src={logoVietED} alt="Home Icon" className='logoVietED' /></Link></div>
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
-            <Layout>
-                <Header
-                    style={{
-                        padding: 0,
-                        background: colorBgContainer,
-                    }}
-                >
-                    <h3>XIN CHÀO!, MÌNH LÀ NHẬT MINH, INTERN REACTJS TẠI
-                        <a href="https://vieted.com/" class="text-primary"> VIETED</a>
+            <ToastContainer
+                        position="top-center"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition={Bounce}
+                    />
+            <Layout className='layoutChild'>
+                {/* <Header className='header'>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition={Bounce}
+                    />
+                    <h3 className='headerText'>XIN CHÀO!, MÌNH LÀ NHẬT MINH, INTERN REACTJS TẠI
+                        <a href="https://vieted.com/" class="headerVietED"> VIETED</a>
                     </h3>
-
-                </Header>
-                <Content
-                    style={{
-                        margin: '0 16px',
-                    }}
-                >
-                    <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-
+                </Header> */}
+                <Content>
+                    <Breadcrumb className='breadCrumb'>
+                        {breadcrumbItems}
                     </Breadcrumb>
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: '#f0f2f5', // Thay thế với colorBgContainer
-                            borderRadius: '8px', // Thay thế với borderRadiusLG
-                        }}
-                    >
-                        <DashBoard></DashBoard>
+                    <div className="fixed-content">
+                        <Outlet />
                     </div>
                 </Content>
                 <Footer
@@ -83,7 +104,6 @@ const WebLayout = () => {
                         textAlign: 'center',
                     }}
                 >
-                    Ant Design ©{new Date().getFullYear()} Created by Ant UED
                 </Footer>
             </Layout>
         </Layout>
